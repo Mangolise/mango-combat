@@ -29,10 +29,6 @@ public class MangoCombat {
         registerEvents(MinecraftServer.getGlobalEventHandler());
     }
 
-    private static float calculateDamage(Player attacker, Player victim) {
-        return 1f;
-    }
-
     private static void registerEvents(GlobalEventHandler events) {
         events.addListener(PlayerSpawnEvent.class, e ->
                 e.getPlayer().getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(100));
@@ -77,7 +73,7 @@ public class MangoCombat {
             return;
         }
 
-        float damage = calculateDamage(attacker, victim);
+        float damage = config.combat().calculateDamage(attacker, victim);
 
         PlayerAttackEvent attackEvent = new PlayerAttackEvent(attacker, victim, damage);
         MinecraftServer.getGlobalEventHandler().call(attackEvent);
@@ -90,10 +86,7 @@ public class MangoCombat {
 
         damage = attackEvent.damage();
         damage(victim, attacker, damage);
-        double hKb = 10;
-//        attacker.setSprinting(false);
-        victim.setVelocity(attacker.getPosition().direction().mul(hKb).withY(8.5));
-//        victim.setVelocity(victim.getVelocity().add(attacker.getPosition().direction().mul(hKb).withY(10)));
+        config.combat().applyKb(attacker, victim);
     }
 
     private static void damage(Player victim, Player attacker, float damage) {
