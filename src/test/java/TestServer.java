@@ -32,7 +32,9 @@ public class TestServer {
 
         MinecraftServer.getGlobalEventHandler().addListener(PlayerChatEvent.class, e -> {
             if (e.getMessage().equals("die")) {
-                e.getPlayer().kill();
+//                e.getPlayer().damage(new Damage(DamageType.FALL, null, null, null, 99999f));
+//                e.getPlayer().kill();  // This will bypass fake death
+                MangoCombat.kill(e.getPlayer());
             }
         });
 

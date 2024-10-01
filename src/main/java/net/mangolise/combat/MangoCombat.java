@@ -50,6 +50,7 @@ public class MangoCombat {
             }
             if (e.getEntity() instanceof Player victim) {
                 processDamage(victim, e.getDamage());
+                e.setCancelled(true);
             }
         });
 
@@ -66,6 +67,10 @@ public class MangoCombat {
                 }
             });
         }
+    }
+
+    public static void kill(Player player) {
+        player.damage(new Damage(DamageType.OUT_OF_WORLD, null, null, null, 999999f));
     }
 
     private static void processAttack(Player attacker, Player victim) {
@@ -152,7 +157,7 @@ public class MangoCombat {
 
         if (config.fakeDeath()) {
             fakeDeath(dead);
-            if (event.deathMsg() != null) {
+            if (event.deathMsg() != null && deathEvent == null) {
                 dead.getInstance().sendMessage(event.deathMsg());
             }
             return;
