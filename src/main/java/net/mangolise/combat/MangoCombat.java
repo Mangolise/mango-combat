@@ -4,6 +4,7 @@ import net.mangolise.combat.events.PlayerAttackEvent;
 import net.mangolise.combat.events.PlayerKilledEvent;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Vec;
+import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.attribute.Attribute;
 import net.minestom.server.entity.damage.Damage;
@@ -35,6 +36,9 @@ public class MangoCombat {
         events.addListener(EntityAttackEvent.class, e -> {
             if (!(e.getEntity() instanceof Player attacker)) return;
             if (!(e.getTarget() instanceof Player victim)) return;
+
+            if (attacker.getGameMode() == GameMode.SPECTATOR) return;
+            if (victim.getGameMode() != GameMode.ADVENTURE && victim.getGameMode() != GameMode.SURVIVAL) return;
 
             processAttack(attacker, victim);
         });
@@ -70,7 +74,7 @@ public class MangoCombat {
     }
 
     public static void kill(Player player) {
-        player.damage(new Damage(DamageType.OUT_OF_WORLD, null, null, null, 999999f));
+        processDeath(player, true, null);
     }
 
     private static void processAttack(Player attacker, Player victim) {
