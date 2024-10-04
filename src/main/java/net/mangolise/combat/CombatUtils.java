@@ -93,6 +93,7 @@ public class CombatUtils {
         String name = material.name();
         if (name.contains("wooden_")) return ItemTier.WOOD;
         if (name.contains("leather_")) return ItemTier.LEATHER;
+        if (name.contains("chainmail_")) return ItemTier.STONE;
         if (name.contains("stone_")) return ItemTier.STONE;
         if (name.contains("iron_")) return ItemTier.IRON;
         if (name.contains("golden_")) return ItemTier.GOLD;

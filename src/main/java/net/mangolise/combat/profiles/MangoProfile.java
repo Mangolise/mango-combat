@@ -48,7 +48,7 @@ public class MangoProfile implements CombatProfile {
         }
         float tierMod = switch (CombatUtils.getTier(material)) {
             case LEATHER -> 1f;
-            case IRON, GOLD -> 1.2f;
+            case IRON, GOLD, STONE -> 1.2f;
             case DIAMOND -> 1.5f;
             case NETHERITE -> 1.8f;
             default -> throw new IllegalStateException();
