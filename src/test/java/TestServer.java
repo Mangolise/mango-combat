@@ -9,6 +9,11 @@ import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.event.player.PlayerChatEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.item.ItemComponent;
+import net.minestom.server.item.ItemStack;
+import net.minestom.server.item.Material;
+import net.minestom.server.item.component.EnchantmentList;
+import net.minestom.server.item.enchant.Enchantment;
 
 public class TestServer {
 
@@ -35,6 +40,15 @@ public class TestServer {
 //                e.getPlayer().damage(new Damage(DamageType.FALL, null, null, null, 99999f));
 //                e.getPlayer().kill();  // This will bypass fake death
                 MangoCombat.kill(e.getPlayer());
+            }
+
+            if (e.getMessage().startsWith("kb")) {
+                try {
+                    int level = Integer.parseInt(e.getMessage().split(" ")[1]);
+                    e.getPlayer().setItemInHand(Player.Hand.MAIN, ItemStack.of(Material.STICK).with(ItemComponent.ENCHANTMENTS, new EnchantmentList(Enchantment.KNOCKBACK, level)));
+                } catch (RuntimeException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

@@ -4,8 +4,11 @@ import net.mangolise.combat.CombatProfile;
 import net.mangolise.combat.CombatUtils;
 import net.minestom.server.entity.EquipmentSlot;
 import net.minestom.server.entity.Player;
+import net.minestom.server.item.ItemComponent;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
+import net.minestom.server.item.component.EnchantmentList;
+import net.minestom.server.item.enchant.Enchantment;
 
 /**
  * Combat profile based on <a href="https://github.com/CoPokBl/BetterCombat">BetterCombat (AKA Serble Combat)</a>
@@ -74,8 +77,22 @@ public class MangoProfile implements CombatProfile {
         return baseDmg * reduction;
     }
 
+    private int getKbLevel(Player player) {
+        ItemStack stack = player.getItemInMainHand();
+        EnchantmentList enchs = stack.get(ItemComponent.ENCHANTMENTS);
+        if (enchs == null) {
+            return 0;
+        }
+        if (!enchs.has(Enchantment.KNOCKBACK)) {
+            return 0;
+        }
+        return enchs.level(Enchantment.KNOCKBACK);
+    }
+
     @Override
     public void applyKb(Player attacker, Player victim) {
-        victim.setVelocity(attacker.getPosition().direction().mul(10).withY(8.5));
+        int kb = getKbLevel(attacker);
+
+        victim.setVelocity(attacker.getPosition().direction().mul(10 + (8 * kb)).withY(8));
     }
 }
