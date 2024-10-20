@@ -2,10 +2,10 @@ package net.mangolise.combat;
 
 import net.mangolise.combat.profiles.MangoProfile;
 
-public record CombatConfig(boolean fakeDeath, boolean disableBuiltinDeathMsgs, int iframes, boolean voidDeath, boolean automaticRespawn, CombatProfile combat) {
+public record CombatConfig(boolean fakeDeath, boolean disableBuiltinDeathMsgs, int iframes, boolean voidDeath, boolean automaticRespawn, CombatProfile combat, int voidLevel) {
 
     public CombatConfig() {
-        this(false, false, 500, false, false, new MangoProfile());
+        this(false, false, 500, false, false, new MangoProfile(), -64);
     }
 
     /**
@@ -17,7 +17,7 @@ public record CombatConfig(boolean fakeDeath, boolean disableBuiltinDeathMsgs, i
      * @return A new modified config.
      */
     public CombatConfig withFakeDeath(boolean fakeDeath) {
-        return new CombatConfig(fakeDeath, disableBuiltinDeathMsgs, iframes, voidDeath, automaticRespawn, combat);
+        return new CombatConfig(fakeDeath, disableBuiltinDeathMsgs, iframes, voidDeath, automaticRespawn, combat, voidLevel);
     }
 
     /**
@@ -28,7 +28,7 @@ public record CombatConfig(boolean fakeDeath, boolean disableBuiltinDeathMsgs, i
      * @return A new modified config.
      */
     public CombatConfig withDisableBuiltinDeathMsgs(boolean dis) {
-        return new CombatConfig(fakeDeath, dis, iframes, voidDeath, automaticRespawn, combat);
+        return new CombatConfig(fakeDeath, dis, iframes, voidDeath, automaticRespawn, combat, voidLevel);
     }
 
     /**
@@ -39,7 +39,7 @@ public record CombatConfig(boolean fakeDeath, boolean disableBuiltinDeathMsgs, i
      * @return A new modified config.
      */
     public CombatConfig withIframes(int iframes) {
-        return new CombatConfig(fakeDeath, disableBuiltinDeathMsgs, iframes, voidDeath, automaticRespawn, combat);
+        return new CombatConfig(fakeDeath, disableBuiltinDeathMsgs, iframes, voidDeath, automaticRespawn, combat, voidLevel);
     }
 
     /**
@@ -50,7 +50,7 @@ public record CombatConfig(boolean fakeDeath, boolean disableBuiltinDeathMsgs, i
      * @return A new modified config.
      */
     public CombatConfig withVoidDeath(boolean voidDeath) {
-        return new CombatConfig(fakeDeath, disableBuiltinDeathMsgs, iframes, voidDeath, automaticRespawn, combat);
+        return new CombatConfig(fakeDeath, disableBuiltinDeathMsgs, iframes, voidDeath, automaticRespawn, combat, voidLevel);
     }
 
     /**
@@ -62,7 +62,7 @@ public record CombatConfig(boolean fakeDeath, boolean disableBuiltinDeathMsgs, i
      * @return A new modified config.
      */
     public CombatConfig withAutomaticRespawn(boolean automaticRespawn) {
-        return new CombatConfig(fakeDeath, disableBuiltinDeathMsgs, iframes, voidDeath, automaticRespawn, combat);
+        return new CombatConfig(fakeDeath, disableBuiltinDeathMsgs, iframes, voidDeath, automaticRespawn, combat, voidLevel);
     }
 
     /**
@@ -73,7 +73,18 @@ public record CombatConfig(boolean fakeDeath, boolean disableBuiltinDeathMsgs, i
      * @return A new modified config.
      */
     public CombatConfig withCombatProfile(CombatProfile combat) {
-        return new CombatConfig(fakeDeath, disableBuiltinDeathMsgs, iframes, voidDeath, automaticRespawn, combat);
+        return new CombatConfig(fakeDeath, disableBuiltinDeathMsgs, iframes, voidDeath, automaticRespawn, combat, voidLevel);
+    }
+
+    /**
+     * Specify the point at which players are killed if voidDeath is enabled.
+     * <p>
+     * Default: -64
+     * @param voidLevel The void level to use.
+     * @return A new modified config.
+     */
+    public CombatConfig withVoidLevel(int voidLevel) {
+        return new CombatConfig(fakeDeath, disableBuiltinDeathMsgs, iframes, voidDeath, automaticRespawn, combat, voidLevel);
     }
 
     /**

@@ -60,7 +60,7 @@ public class MangoCombat {
 
         if (config.voidDeath()) {
             events.addListener(PlayerMoveEvent.class, e -> {
-                if (e.getNewPosition().y() < 0) {
+                if (e.getNewPosition().y() < config.voidLevel()) {
                     processDamage(e.getPlayer(),
                             new Damage(
                                     DamageType.OUT_OF_WORLD,
