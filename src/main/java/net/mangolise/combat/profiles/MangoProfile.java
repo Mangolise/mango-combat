@@ -2,9 +2,10 @@ package net.mangolise.combat.profiles;
 
 import net.mangolise.combat.CombatProfile;
 import net.mangolise.combat.CombatUtils;
+import net.minestom.server.component.DataComponents;
 import net.minestom.server.entity.EquipmentSlot;
 import net.minestom.server.entity.Player;
-import net.minestom.server.item.ItemComponent;
+import net.minestom.server.entity.PlayerHand;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import net.minestom.server.item.component.EnchantmentList;
@@ -16,7 +17,7 @@ import net.minestom.server.item.enchant.Enchantment;
 public class MangoProfile implements CombatProfile {
 
     private static float calculateBaseDamage(Player player) {
-        Material material = player.getItemInHand(Player.Hand.MAIN).material();
+        Material material = player.getItemInHand(PlayerHand.MAIN).material();
         float typeBase = switch (CombatUtils.getType(material)) {
             case AXE -> 4;
             case SWORD -> 3;
@@ -79,7 +80,7 @@ public class MangoProfile implements CombatProfile {
 
     private int getKbLevel(Player player) {
         ItemStack stack = player.getItemInMainHand();
-        EnchantmentList enchs = stack.get(ItemComponent.ENCHANTMENTS);
+        EnchantmentList enchs = stack.get(DataComponents.ENCHANTMENTS);
         if (enchs == null) {
             return 0;
         }

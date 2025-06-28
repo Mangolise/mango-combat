@@ -3,13 +3,14 @@ import net.mangolise.combat.CombatConfig;
 import net.mangolise.combat.MangoCombat;
 import net.mangolise.combat.events.PlayerKilledEvent;
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.component.DataComponents;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
+import net.minestom.server.entity.PlayerHand;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.event.player.PlayerChatEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.block.Block;
-import net.minestom.server.item.ItemComponent;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import net.minestom.server.item.component.EnchantmentList;
@@ -36,16 +37,16 @@ public class TestServer {
         });
 
         MinecraftServer.getGlobalEventHandler().addListener(PlayerChatEvent.class, e -> {
-            if (e.getMessage().equals("die")) {
+            if (e.getRawMessage().equals("die")) {
 //                e.getPlayer().damage(new Damage(DamageType.FALL, null, null, null, 99999f));
 //                e.getPlayer().kill();  // This will bypass fake death
                 MangoCombat.kill(e.getPlayer());
             }
 
-            if (e.getMessage().startsWith("kb")) {
+            if (e.getRawMessage().startsWith("kb")) {
                 try {
-                    int level = Integer.parseInt(e.getMessage().split(" ")[1]);
-                    e.getPlayer().setItemInHand(Player.Hand.MAIN, ItemStack.of(Material.STICK).with(ItemComponent.ENCHANTMENTS, new EnchantmentList(Enchantment.KNOCKBACK, level)));
+                    int level = Integer.parseInt(e.getRawMessage().split(" ")[1]);
+                    e.getPlayer().setItemInHand(PlayerHand.MAIN, ItemStack.of(Material.STICK).with(DataComponents.ENCHANTMENTS, new EnchantmentList(Enchantment.KNOCKBACK, level)));
                 } catch (RuntimeException ex) {
                     throw new RuntimeException(ex);
                 }

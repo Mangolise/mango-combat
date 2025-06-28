@@ -14,9 +14,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly("net.minestom:minestom-snapshots:d0754f2a15")
+    compileOnly("net.minestom:minestom-snapshots:4fe2993057")
 
-    testImplementation("net.minestom:minestom-snapshots:d0754f2a15")
+    testImplementation("net.minestom:minestom-snapshots:4fe2993057")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
