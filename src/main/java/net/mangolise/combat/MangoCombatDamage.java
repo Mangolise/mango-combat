@@ -19,7 +19,7 @@ public class MangoCombatDamage extends Damage {
      * @param sourcePosition The position of the source of damage
      * @param amount         amount of damage
      */
-    public MangoCombatDamage(RegistryKey<DamageType> type, @Nullable Entity source, @Nullable Entity attacker, @Nullable Point sourcePosition, float amount) {
+    public MangoCombatDamage(@NotNull RegistryKey<DamageType> type, @Nullable Entity source, @Nullable Entity attacker, @Nullable Point sourcePosition, float amount) {
         super(type, source, attacker, sourcePosition, amount);
     }
 
