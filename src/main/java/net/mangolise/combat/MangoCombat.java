@@ -32,7 +32,7 @@ public class MangoCombat {
 
     private static void registerEvents(GlobalEventHandler events) {
         events.addListener(PlayerSpawnEvent.class, e ->
-                e.getPlayer().getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(100));
+                e.getPlayer().getAttribute(Attribute.ATTACK_SPEED).setBaseValue(100));
         events.addListener(EntityAttackEvent.class, e -> {
             if (!(e.getEntity() instanceof Player attacker)) return;
             if (!(e.getTarget() instanceof Player victim)) return;
