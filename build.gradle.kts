@@ -14,15 +14,18 @@ repositories {
 }
 
 dependencies {
-    compileOnly("net.minestom:minestom:2025.07.10b-1.21.7")
+    compileOnly("net.minestom:minestom:2026.01.01-1.21.11")
 
-    testImplementation("net.minestom:minestom:2025.07.10b-1.21.7")
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("net.minestom:minestom:2026.01.01-1.21.11")
+    testImplementation(platform("org.junit:junit-bom:6.1.0-M1"))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        failOnNoDiscoveredTests = false
+    }
 }
 
 java {
